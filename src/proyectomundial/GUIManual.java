@@ -59,6 +59,9 @@ public class GUIManual extends JFrame {
     
     private JPanel jPanelMenuDashboardRes;
     private JLabel btnDashboardRes;
+    
+    private JPanel jPanelMenuSesion;
+    private JLabel btnMenuSesion; 
         
     // Elementos de panel de contenido
     private JPanel jPanelRight;
@@ -112,6 +115,9 @@ public class GUIManual extends JFrame {
         jPanelMenuDashboardRes = new JPanel();
         btnDashboardRes = new JLabel();
         
+        jPanelMenuSesion = new JPanel();
+        btnMenuSesion = new JLabel(); 
+        
         // Pinta el logo de la aplicación
         pintarLogo();
         
@@ -133,7 +139,7 @@ public class GUIManual extends JFrame {
         // Pinta y ajuste diseño del contenedor del panel izquierdo
         pintarPanelIzquierdo();
         
-        
+        pintarMenuSesion();
         
         // Inicializa los componentes del panel derecho de los contenidos
         jPanelRight = new JPanel();
@@ -351,7 +357,86 @@ public class GUIManual extends JFrame {
             pintarTablaSelecciones();
         }
     }
+    private void pintarMenuSesion(){
+      
+        btnMenuSesion.setIcon(new ImageIcon(getClass().getResource("/resources/icons/home.png"))); // NOI18N
+        btnMenuSesion.setText("Inicio Sesión");
+        btnMenuSesion.setForeground(new java.awt.Color(255, 255, 255));
+        
+        JLabel vacioHome = new JLabel();
+        jPanelMenuSesion.setBackground(new java.awt.Color(17, 41, 63));
+        jPanelMenuSesion.setPreferredSize((new java.awt.Dimension(220, 35)));
+        jPanelMenuSesion.setLayout(new BorderLayout(15, 0));
+        jPanelMenuSesion.add(vacioHome, BorderLayout.WEST);
+        jPanelMenuSesion.add(btnMenuSesion, BorderLayout.CENTER);
+        jPanelMenu.add(jPanelMenuSesion);
+        
+        btnMenuSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                System.out.println("Inicio Sesión");
+                accionMenuSesion();
+            }
+        });
+        
+        
+    }
     
+    private void accionMenuSesion(){
+        
+        if(haySesion) {
+            JOptionPane.showMessageDialog(null, "No hay sesión iniciada");
+            return;
+        }
+                       
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new GridLayout(4, 1, 0, 0));
+        
+        JLabel labelUsu = new JLabel();
+        labelUsu.setText("Usuario");
+        topPanel.add(labelUsu);
+        
+        JTextField fieldUsu = new JTextField();
+        topPanel.add(fieldUsu);
+        fieldUsu.setLayout(new BoxLayout(fieldUsu, BoxLayout.Y_AXIS));
+        fieldUsu.setPreferredSize((new java.awt.Dimension(220, 35)));
+        
+        JLabel labelContra = new JLabel();
+        labelContra.setText("Usuario");
+        topPanel.add(labelContra);
+               
+        JTextField fieldContra = new JTextField();
+        topPanel.add(fieldContra);
+        fieldContra.setLayout(new BoxLayout(fieldContra, BoxLayout.Y_AXIS));
+        fieldContra.setPreferredSize((new java.awt.Dimension(220, 35)));
+        
+        JPanel panelBotonInicio = new JPanel();
+        panelBotonInicio.setLayout(new GridLayout(1, 2, 30, 0));
+        
+        JButton boton = new JButton();
+        boton.setText("Iniciar Sesion");
+        panelBotonInicio.add(boton);
+        topPanel.add(panelBotonInicio);
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                
+                
+                
+            }
+        });
+        
+               
+        jPanelMain.removeAll();
+        jPanelMain.add(labelUsu);
+        jPanelMain.add(fieldUsu);
+        jPanelMain.add(labelContra);
+        jPanelMain.add(fieldContra);
+        jPanelMain.add(fieldContra);
+        jPanelMain.add(boton);
+        jPanelMain.repaint();
+        jPanelMain.revalidate();
+        
+    }
+
     
     /**
      * Función que se encarga de ajustar los elementos gráficos que componente la opción de navegación de Dashboard de Selecciones
@@ -737,4 +822,6 @@ public class GUIManual extends JFrame {
             }
         });
     }
+
+   
 }
