@@ -21,26 +21,26 @@ public class SesionDAO {
     }   
     
     
-    public List<Sesion> getSesion(String usuario, String contraseña) {
-        
+   public String[] getSesion() {
         String sql = "SELECT * from poo.users u";
-        List<Sesion> selecciones = new ArrayList<Sesion>();
-        
+        String resultado[] = new String[2];
+              
         try {
             ResultSet result = BasedeDatos.ejecutarSQL(sql);
             
-            if(result != null) {
-            
-                while (result.next()) { 
-                    Sesion seleccion = new Sesion(result.getString("username"), result.getString("password"));
-                    selecciones.add(seleccion);
-                }
+            if(result.next()) {
+                resultado[0] = result.getString("username");
+                resultado[1]= result.getString("password");
             }
+            
+            
         } catch (Exception e) {
             System.out.println(e.toString());
-            System.out.println("Error consultando sesion");
+            System.out.println("Error de sesion");
         }
         
-        return selecciones;
-    }
+        return resultado;
+   }
+   
+   
 }

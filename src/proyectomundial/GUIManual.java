@@ -23,12 +23,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import proyectomundial.DAO.SeleccionDAO;
+import proyectomundial.DAO.SesionDAO;
 import proyectomundial.model.Seleccion;
 
 public class GUIManual extends JFrame {
 
     SeleccionDAO seleccionDAO = new SeleccionDAO();
-    
+    SesionDAO sesionDAO = new SesionDAO();
     
     // Matrix que permite almancenar la información de las selecciones futbol cargadas
     public String[][] selecciones = null;
@@ -382,12 +383,7 @@ public class GUIManual extends JFrame {
     }
     
     private void accionMenuSesion(){
-        
-        if(haySesion) {
-            JOptionPane.showMessageDialog(null, "No hay sesión iniciada");
-            return;
-        }
-                       
+                              
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(4, 1, 0, 0));
         
@@ -401,7 +397,7 @@ public class GUIManual extends JFrame {
         fieldUsu.setPreferredSize((new java.awt.Dimension(220, 35)));
         
         JLabel labelContra = new JLabel();
-        labelContra.setText("Usuario");
+        labelContra.setText("Contraseña");
         topPanel.add(labelContra);
                
         JTextField fieldContra = new JTextField();
@@ -419,7 +415,21 @@ public class GUIManual extends JFrame {
         boton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 
+                String Usua = fieldUsu.getText();
+                String Contra = fieldContra.getText();
                 
+                if(Usua.equals(sesionDAO.getSesion()[0])){
+                    if(Contra.equals(sesionDAO.getSesion()[1])){
+                       haySesion = true; 
+                       JOptionPane.showMessageDialog(null, "You're into the program :)");
+                    }else{
+                        haySesion = false;
+                        JOptionPane.showMessageDialog(null, "You're not into the program :(");
+                    }
+                }else{
+                    haySesion = false;
+                    JOptionPane.showMessageDialog(null, "You're not into the program :(");
+                }
                 
             }
         });
@@ -436,7 +446,6 @@ public class GUIManual extends JFrame {
         jPanelMain.revalidate();
         
     }
-
     
     /**
      * Función que se encarga de ajustar los elementos gráficos que componente la opción de navegación de Dashboard de Selecciones
